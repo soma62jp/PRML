@@ -11,6 +11,7 @@
 #include "Matrix.h"
 #include "SquareMatrix.h"
 #include "Vector.h"
+#include "numpy.h"
 
 using namespace arith;
 
