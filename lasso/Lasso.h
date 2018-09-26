@@ -41,8 +41,12 @@ using namespace std;
 		alpha_ = alpha ;
 		max_iter_ = max_iter ;
 		fit_intercept_ = fit_intercept ;
-		coef_ = NULL ;
+		coef_ = NULL;
 		intercept_ = 0;
+	}
+
+	Lasso::~Lasso(){
+		delete coef_;
 	}
 
 	double Lasso::soft_thresholding_operator(double x, double lambda){
