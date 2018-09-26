@@ -12,12 +12,14 @@
 
 #include "Matrix.h"
 #include "numpy.h"
+#include "Lasso.h"
 
 using namespace arith;
 using namespace std;
 
 int main(int argc, char* argv[]) 
 {
+    /*
     // Initialize the number of rows and columns
     Matrix matA(3, 2);
     Matrix matB(3, 2);
@@ -60,7 +62,20 @@ int main(int argc, char* argv[])
 	numpy::print(matA);
     cout << "--" << endl;
 	numpy::print(matB);
+    */
 
+    //----------------------
+    Matrix X(3,2);
+    X(0,0)=0;
+    X(0,1)=0;
+    X(1,0)=1;
+    X(1,1)=100;
+    X(2,0)=2;
+    X(2,1)=100;
+
+    numpy::print(X);
+
+    Lasso model(1.0,1000,true);
 
 	return 0;
 }

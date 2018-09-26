@@ -8,23 +8,23 @@ using namespace arith;
 using namespace std;
 
 	//------------------------------------------//
-	//              ƒN@ƒ‰@ƒX                   //
+	//              ï¿½Nï¿½@ï¿½ï¿½ï¿½@ï¿½X                   //
 	//------------------------------------------//
 	class Lasso{
 
 		private:
 
-			double alpha_;				// ³‘¥‰»€‚ÌŒW”
-			int max_iter_;				// ŒJ‚è•Ô‚µ‚Ì‰ñ”
-			bool fit_intercept_;		// Ø•Ğ(i.e., \beta_0)‚ğ—p‚¢‚é‚©
-			Matrix coef_;				// ‰ñ‹AŒW”(i.e., \beta)•Û‘¶—p•Ï”
-			double intercept_;			// Ø•Ğ•Û‘¶—p•Ï”
+			double alpha_;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌŒWï¿½ï¿½
+			int max_iter_;				// ï¿½Jï¿½ï¿½Ô‚ï¿½ï¿½Ì‰ï¿½
+			bool fit_intercept_;		// ï¿½Ø•ï¿½(i.e., \beta_0)ï¿½ï¿½pï¿½ï¿½ï¿½é‚©
+			Matrix coef_;				// ï¿½ï¿½Aï¿½Wï¿½ï¿½(i.e., \beta)ï¿½Û‘ï¿½ï¿½pï¿½Ïï¿½
+			double intercept_;			// ï¿½Ø•Ğ•Û‘ï¿½ï¿½pï¿½Ïï¿½
 
 		public:
-			// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+			// ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 			explicit Lasso(double alpha, int max_iter, bool fit_intercept);
 
-			// ƒfƒXƒgƒ‰ƒNƒ^
+			// ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 			virtual ~Lasso();
 
 			void soft_thresholding_operator(double x, double lambda);
@@ -35,8 +35,8 @@ using namespace std;
 
 	};
 
-		// s—ñ—v‘f‚ğ‰Šú‰»‚·‚é
-	Lasso::Lasso(double alpha, int max_iter, bool fit_intercept) : alpha(1.0), max_iter(1000),fit_intercept(true)
+		// ï¿½sï¿½ï¿½vï¿½fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	Lasso::Lasso(double alpha, int max_iter, bool fit_intercept) : alpha_(1.0), max_iter_(1000),fit_intercept_(true)
 	{
 		alpha_ = alpha ;
 		max_iter_ = max_iter ;
@@ -75,12 +75,14 @@ using namespace std;
 			}
 		}
 
+		//numpy::print(calcX);
+
 
 	}
 
 	Matrix Lasso::predict(const Matrix& X){
 
-		Matrix y = numpy::mult(X,coef_);   // “àÏ
+		Matrix y = numpy::mult(X,coef_);   // ï¿½ï¿½ï¿½
 		Matrix wrk(1, y.m_col);
 
 		//np.ones(len(y))

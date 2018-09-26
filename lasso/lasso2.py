@@ -24,7 +24,7 @@ class Lasso(BaseEstimator, RegressorMixin):
     if self.fit_intercept:
       X = np.column_stack((np.ones(len(X)),X)) # １次行列の組み合わせなら２次元行列を作り、多次元の組みならhstackと同じ振る舞いをする。np.hstack((行列1, 行列2)) : 水平方向に合体する。
       #print(np.ones(len(X)))
-      #print(X)
+      print(X)
 
     beta = np.zeros(X.shape[1])	              # 行数
 
