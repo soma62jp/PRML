@@ -17,7 +17,7 @@ using namespace std;
 			double alpha_;				// ���������̌W��
 			int max_iter_;				// �J��Ԃ��̉�
 			bool fit_intercept_;		// �ؕ�(i.e., \beta_0)��p���邩
-			Matrix coef_;				// ��A�W��(i.e., \beta)�ۑ��p�ϐ�
+			Matrix* coef_;				// ��A�W��(i.e., \beta)�ۑ��p�ϐ�
 			double intercept_;			// �ؕЕۑ��p�ϐ�
 
 		public:
@@ -27,7 +27,7 @@ using namespace std;
 			// �f�X�g���N�^
 			virtual ~Lasso();
 
-			void soft_thresholding_operator(double x, double lambda);
+			double soft_thresholding_operator(double x, double lambda);
 
 			void fit(const Matrix& X, const Matrix& y);
 
@@ -41,11 +41,11 @@ using namespace std;
 		alpha_ = alpha ;
 		max_iter_ = max_iter ;
 		fit_intercept_ = fit_intercept ;
-		coef_ = 0 ;
+		coef_ = NULL ;
 		intercept_ = 0;
 	}
 
-	void Lasso::soft_thresholding_operator(double x, double lambda){
+	double Lasso::soft_thresholding_operator(double x, double lambda){
 
 		if ((x > 0) && (lambda < abs(x))){
 		  return x - lambda;
@@ -64,7 +64,7 @@ using namespace std;
 
 		for(int i=0;i<X.m_row;i++){
 			for(int j=0;j<X.m_col;j++){
-				calcX(i,j + 1) = X(i,j);
+				calcX.val[i][j + 1] = X.val[i][j];
 			}
 		}
 
@@ -82,7 +82,7 @@ using namespace std;
 
 	Matrix Lasso::predict(const Matrix& X){
 
-		Matrix y = numpy::mult(X,coef_);   // ���
+		Matrix y = numpy::mult(X,*coef_);   // ���
 		Matrix wrk(1, y.m_col);
 
 		//np.ones(len(y))
@@ -91,7 +91,7 @@ using namespace std;
 		}
 
 		if (fit_intercept_){
-			y += intercept_ * wrk;
+			//y += intercept_ * wrk;
 		}
 
 		return y;
