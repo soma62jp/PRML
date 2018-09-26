@@ -8,23 +8,23 @@ using namespace arith;
 using namespace std;
 
 	//------------------------------------------//
-	//              �N�@���@�X                   //
+	//             Lasso回帰                    //
 	//------------------------------------------//
 	class Lasso{
 
 		private:
 
-			double alpha_;				// ���������̌W��
-			int max_iter_;				// �J��Ԃ��̉�
-			bool fit_intercept_;		// �ؕ�(i.e., \beta_0)��p���邩
-			Matrix* coef_;				// ��A�W��(i.e., \beta)�ۑ��p�ϐ�
-			double intercept_;			// �ؕЕۑ��p�ϐ�
+			double alpha_;				// 正則化項の係数
+			int max_iter_;				// 繰り返しの回数
+			bool fit_intercept_;		// 切片(i.e., ¥beta_0)を用いるか
+			Matrix* coef_;				// 回帰係数(i.e., ¥beta)保存用変数
+			double intercept_;			// 切片保存用変数
 
 		public:
-			// �R���X�g���N�^
+			// 
 			explicit Lasso(double alpha, int max_iter, bool fit_intercept);
 
-			// �f�X�g���N�^
+			// 
 			virtual ~Lasso();
 
 			double soft_thresholding_operator(double x, double lambda);
@@ -35,12 +35,12 @@ using namespace std;
 
 	};
 
-		// �s��v�f���������
+	//
 	Lasso::Lasso(double alpha, int max_iter, bool fit_intercept) : alpha_(1.0), max_iter_(1000),fit_intercept_(true)
 	{
 		alpha_ = alpha ;
 		max_iter_ = max_iter ;
-		fit_intercept_ = fit_intercept ;
+		fit_intercept_ = fit_intercept;
 		coef_ = NULL;
 		intercept_ = 0;
 	}
@@ -63,19 +63,21 @@ using namespace std;
 
 	void Lasso::fit(const Matrix& X, const Matrix& y){
 
+		coef_ = new Matrix(1,1);    // coefのサイズを作る
+
 		//fit_intercept_=true
 		Matrix calcX(X.m_row, X.m_col + 1);
 
-		for(int i=0;i<X.m_row;i++){
-			for(int j=0;j<X.m_col;j++){
+		for(unsigned int i=0;i<X.m_row;i++){
+			for(unsigned int j=0;j<X.m_col;j++){
 				calcX.val[i][j + 1] = X.val[i][j];
 			}
 		}
 
 		if (fit_intercept_){
 			//XX = np.column_stack((np.ones(len(X)),X))
-			for(int i=0;i<calcX.m_col;i++){
-				calcX(i,0)=1;
+			for(unsigned int i=0;i<calcX.m_col;i++){
+				calcX(i,0) = 1;
 			}
 		}
 
@@ -86,20 +88,19 @@ using namespace std;
 
 	Matrix Lasso::predict(const Matrix& X){
 
-		Matrix y = numpy::mult(X,*coef_);   // ���
+		Matrix y = numpy::mult(X,*coef_);   //
 		Matrix wrk(1, y.m_col);
 
 		//np.ones(len(y))
-		for(int i=0;i<y.m_col;i++){
-			wrk(0,i)=1;
+		for(unsigned int i=0;i<y.m_col;i++){
+			wrk(0,i) = 1;
 		}
 
 		if (fit_intercept_){
-			//y += intercept_ * wrk;
+			y += wrk * intercept_;
 		}
 
 		return y;
 	}
 
 #endif // _LASSO_H_
-
