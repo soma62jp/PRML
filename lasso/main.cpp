@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
     numpy::print(X);
 
     Lasso model(1.0,1000,true);
-    //model.fit(X,y);
+    model.fit(X,y);
 
 	return 0;
 }
