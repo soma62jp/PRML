@@ -73,9 +73,15 @@ int main(int argc, char* argv[])
     X(2,0)=2;
     X(2,1)=100;
 
+    Matrix y(1,3);
+    y(0,0)=1;
+    y(0,1)=2;
+    y(0,2)=4;
+
     numpy::print(X);
 
     Lasso model(1.0,1000,true);
+    //model.fit(X,y);
 
 	return 0;
 }
