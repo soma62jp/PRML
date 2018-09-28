@@ -70,9 +70,9 @@ class Lasso(BaseEstimator, RegressorMixin):
       y += self.intercept_*np.ones(len(y))
     return y
 
-X = [[0,0], [1, 100], [2, 200]]
-y = [1, 2, 4]
-test =[[0,0], [1, 100], [2, 200]]
+X = [[0,0], [1, 100], [2, 200],[3,300]]
+y = [1, 2, 4, 8]
+test =[[0,0], [1, 100], [2, 200],[3,300]]
 
 model = Lasso(alpha=1.0, max_iter=1000)
 model.fit(X, y)
