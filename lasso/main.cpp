@@ -32,11 +32,11 @@ int main(int argc, char* argv[])
   X(3,0)=3;
   X(3,1)=300;
 
-	Matrix y(1,4);
+  Matrix y(1,4);
   y(0,0)=1;
   y(0,1)=2;
-	y(0,2)=4;
-	y(0,3)=8;
+  y(0,2)=4;
+  y(0,3)=8;
 
   test=X;
 
