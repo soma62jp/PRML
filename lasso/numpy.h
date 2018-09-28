@@ -21,11 +21,11 @@ class numpy;
 		static Matrix mult(Matrix mat, Matrix mat2);
 		static Matrix add(Matrix mat, Matrix mat2);
 
-		static void print(const Matrix& mat);	// ƒfƒoƒbƒO—p
+		static void print(const Matrix& mat);	// ãƒ‡ãƒãƒƒã‚°ç”¨
 	};
 
 
-	// np.argmax‘Š“–
+	// np.argmaxç›¸å½“
 	Matrix numpy::argmax(Matrix& mat,int axis)
 	{
 		unsigned int m_col = mat.m_col;
@@ -75,7 +75,7 @@ class numpy;
 
 	}
 
-	// np.sum‘Š“–
+	// np.sumç›¸å½“
 	Matrix numpy::sum(Matrix& mat,int axis)
 	{
 		unsigned int m_col = mat.m_col;
@@ -117,7 +117,7 @@ class numpy;
 
 	}
 
-	// np.random.choice‘Š“–
+	// np.random.choiceç›¸å½“
 	Matrix numpy::random_choice(int a,int num)
 	{
 		srand((unsigned int)time(NULL));
@@ -131,22 +131,22 @@ class numpy;
 		return matAns;
 	}
 
-	// np.* ‘Š“–
+	// np.* ç›¸å½“
 	Matrix numpy::mult(Matrix mat,Matrix mat2)
 	{
 		unsigned int m_col = mat.m_col;
 		unsigned int m_row = mat.m_row;
 
-		// s—ñ“¯m‚Ìs”‚Æ—ñ”‚ª“™‚µ‚­‚È‚¢‚Æ‚«
+		// è¡Œåˆ—åŒå£«ã®è¡Œæ•°ã¨åˆ—æ•°ãŒç­‰ã—ããªã„ã¨ã
 		if(mat.m_row != mat2.m_row || mat.m_col != mat2.m_col){
 			std::string err = "Matrix can't be added";
 			throw err;
 		}
 
-		// ‰ğ‚Æ‚È‚és—ñ
+		// è§£ã¨ãªã‚‹è¡Œåˆ—
 		Matrix matAns(m_row, m_col);
 
-		// ó‚¯æ‚Á‚½2‚Â‚Ìs—ñ‚Ì—v‘f‚ğæZ‚·‚é
+		// å—ã‘å–ã£ãŸ2ã¤ã®è¡Œåˆ—ã®è¦ç´ ã‚’ä¹—ç®—ã™ã‚‹
 		for(unsigned int i = 0; i < m_row; i++)
 		{
 			for(unsigned int j = 0; j < m_col; j++)
@@ -159,23 +159,23 @@ class numpy;
 
 	}
 
-	// np.+ ‘Š“–
-	// 1sor1—ñ‚Ì‚İ‘Î‰(b’è)
+	// np.+ ç›¸å½“
+	// 1è¡Œor1åˆ—ã®ã¿å¯¾å¿œ(æš«å®š)
 	Matrix numpy::add(Matrix mat,Matrix mat2)
 	{
 		unsigned int m_col = mat.m_col;
 		unsigned int m_row = mat.m_row;
 
-		// s—ñ“¯m‚Ìs”‚à—ñ”‚à1‚Å‚Í‚È‚¢‚Æ‚«
+		// è¡Œåˆ—åŒå£«ã®è¡Œæ•°ã‚‚åˆ—æ•°ã‚‚1ã§ã¯ãªã„ã¨ã
 		if(mat2.m_row != 1 && mat2.m_col != 1){
 			std::string err = "Matrix can't be added";
 			throw err;
 		}
 
-		// ‰ğ‚Æ‚È‚és—ñ
+		// è§£ã¨ãªã‚‹è¡Œåˆ—
 		Matrix matAns(m_row, m_col);
 
-		// ó‚¯æ‚Á‚½2‚Â‚Ìs—ñ‚Ì—v‘f‚ğ‰ÁZ‚·‚é(s)
+		// å—ã‘å–ã£ãŸ2ã¤ã®è¡Œåˆ—ã®è¦ç´ ã‚’åŠ ç®—ã™ã‚‹(è¡Œ)
 		if(mat2.m_row == 1){
 			for(unsigned int i = 0; i < m_row; i++)
 			{
@@ -198,7 +198,7 @@ class numpy;
 
 	}
 
-	// ƒfƒoƒbƒO
+	// ãƒ‡ãƒãƒƒã‚°
 	void numpy::print(const Matrix& mat)
 	{
 		unsigned int m_col = mat.m_col;

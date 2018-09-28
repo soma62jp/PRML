@@ -10,7 +10,7 @@
 #define _MATRIX_H_
 
 //------------------------------------------//
-//              ƒCƒ“ƒNƒ‹[ƒh              	//
+//              ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰              	//
 //------------------------------------------//
 
 #include <iostream>
@@ -22,78 +22,78 @@ using namespace std;
 namespace arith {
 
 	//------------------------------------------//
-	//              ƒN@ƒ‰@ƒX                   //
+	//              ã‚¯ã€€ãƒ©ã€€ã‚¹                   //
 	//------------------------------------------//
 	class Matrix{
 	public:
-	    unsigned int m_row;    // s
-	    unsigned int m_col;    // —ñ
+	    unsigned int m_row;    // è¡Œ
+	    unsigned int m_col;    // åˆ—
 
-	    double** val;   // s—ñ—v‘f—pƒ|ƒCƒ“ƒ^
+	    double** val;   // è¡Œåˆ—è¦ç´ ç”¨ãƒã‚¤ãƒ³ã‚¿
 	//  vector< vector<double> > val;
 
 	public:
 	    explicit Matrix
-		(unsigned int, unsigned int);   // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	    Matrix(const Matrix&);              // ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	    virtual ~Matrix();                  // ƒfƒXƒgƒ‰ƒNƒ^
+		(unsigned int, unsigned int);   // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	    Matrix(const Matrix&);              // ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	    virtual ~Matrix();                  // ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
-	    // s—ñ—v‘f‚ğæ‚èo‚·
+	    // è¡Œåˆ—è¦ç´ ã‚’å–ã‚Šå‡ºã™
 	    double& operator()(unsigned int row, unsigned int col);
 
-	    // s—ñ‚Ì‘ã“ü
+	    // è¡Œåˆ—ã®ä»£å…¥
 	    Matrix& operator= (const Matrix&);
 
-	    // s—ñ‚Æ‚Ì‰ÁŒ¸Z
+	    // è¡Œåˆ—ã¨ã®åŠ æ¸›ç®—
 	    Matrix  operator+ (const Matrix&) const;
 	    Matrix& operator+=(const Matrix&);
 	    Matrix  operator- (const Matrix&) const;
 	    Matrix& operator-=(const Matrix&);
 
-	    // s—ñ‚Æ‚ÌÏ
+	    // è¡Œåˆ—ã¨ã®ç©
 	    Matrix  operator* (const Matrix&) const;
 
-	    // ”’l‚Æ‚ÌæœZ
+	    // æ•°å€¤ã¨ã®ä¹—é™¤ç®—
 	    Matrix  operator* (const double&) const;
 	    Matrix& operator*=(const double&);
 	    Matrix  operator/ (const double&) const;
 	    Matrix& operator/=(const double&);
 
-	    // “]’us—ñ
+	    // è»¢ç½®è¡Œåˆ—
 	    Matrix transpose() const;
 
-            // s—ñ‚Æ’l‚Ì‰ÁŒ¸Z
+            // è¡Œåˆ—ã¨å€¤ã®åŠ æ¸›ç®—
 	    Matrix operator+(const double&) const;
 	    Matrix& operator+=(const double&);
 	    Matrix operator-(const double&) const;
 	    Matrix& operator-=(const double&);
 
-		// ”äŠr
+		// æ¯”è¼ƒ
 		bool operator==(const Matrix& mat) const;
 
 	};
 
-	// s—ñ—v‘f‚ğ‰Šú‰»‚·‚é
+	// è¡Œåˆ—è¦ç´ ã‚’åˆæœŸåŒ–ã™ã‚‹
 	Matrix::Matrix(unsigned int row, unsigned int col) : m_row(row), m_col(col)
 	{
-		// s‚Ì—v‘f”‚ğİ’è‚·‚é
+		// è¡Œã®è¦ç´ æ•°ã‚’è¨­å®šã™ã‚‹
 	/*  val.resize(m_row);
 		for(unsigned int i = 0; i < m_row; i++)
 		{
-			// —ñ‚Ì—v‘f”‚ğİ’è‚·‚é
+			// åˆ—ã®è¦ç´ æ•°ã‚’è¨­å®šã™ã‚‹
 			val[i].resize(m_col);
 		}
 	*/
-		// s—v‘f‚ğ¶¬‚·‚é
+		// è¡Œè¦ç´ ã‚’ç”Ÿæˆã™ã‚‹
 		val = new double*[m_row];
 
 		for (unsigned int i = 0; i < m_row; i++)
 		{
-			// —ñ—v‘f‚ğ¶¬‚·‚é
+			// åˆ—è¦ç´ ã‚’ç”Ÿæˆã™ã‚‹
 			val[i] = new double[m_col];
 		}
 
-		// s—ñ—v‘f‚ğ‰Šú‰»‚·‚é
+		// è¡Œåˆ—è¦ç´ ã‚’åˆæœŸåŒ–ã™ã‚‹
 		for(unsigned int i = 0; i < m_row; i++)
 		{
 			for(unsigned int j = 0; j < m_col; j++)
@@ -103,28 +103,28 @@ namespace arith {
 		}
 	}
 
-	// s—ñ—v‘f‚ğƒIƒuƒWƒFƒNƒg‚Å‰Šú‰»‚·‚é
+	// è¡Œåˆ—è¦ç´ ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§åˆæœŸåŒ–ã™ã‚‹
 	Matrix::Matrix(const Matrix& mat) :
 		m_row(mat.m_row), m_col(mat.m_col)
 	{
-		// s‚Ì—v‘f”‚ğİ’è‚·‚é
+		// è¡Œã®è¦ç´ æ•°ã‚’è¨­å®šã™ã‚‹
 	/*  val.resize(m_row);
 		for(unsigned int i = 0; i < m_row; i++)
 		{
-			// —ñ‚Ì—v‘f”‚ğİ’è‚·‚é
+			// åˆ—ã®è¦ç´ æ•°ã‚’è¨­å®šã™ã‚‹
 			val[i].resize(m_col);
 		}
 	*/
-		// —ñ—v‘f¶¬
+		// åˆ—è¦ç´ ç”Ÿæˆ
 		val = new double*[m_row];
 
 		for (unsigned int i = 0; i < m_row; i++)
 		{
-			// s—v‘f¶¬
+			// è¡Œè¦ç´ ç”Ÿæˆ
 			val[i] = new double[m_col];
 		}
 
-		// ’l‘ã“ü
+		// å€¤ä»£å…¥
 		for(unsigned int i = 0; i < m_row; i++)
 		{
 			for(unsigned int j = 0; j < m_col; j++)
@@ -134,10 +134,10 @@ namespace arith {
 		}
 	}
 
-	// s—ñ—v‘f‚ğ”jŠü‚·‚é
+	// è¡Œåˆ—è¦ç´ ã‚’ç ´æ£„ã™ã‚‹
 	Matrix::~Matrix()
 	{
-		// s—ñ—v‘f”jŠü
+		// è¡Œåˆ—è¦ç´ ç ´æ£„
 		for (unsigned int i = 0; i < m_row; i++){
 			delete[] val[i];
 		}
@@ -145,16 +145,16 @@ namespace arith {
 		delete[] val;
 	}
 
-	// s—ñ—v‘f‚ğæ“¾‚·‚é
+	// è¡Œåˆ—è¦ç´ ã‚’å–å¾—ã™ã‚‹
 	double& Matrix::operator()(unsigned int row, unsigned int col)
 	{
 		return val[row][col];
 	}
 
-	// ‘ã“ü‰‰Zq
+	// ä»£å…¥æ¼”ç®—å­
 	Matrix& Matrix::operator=(const Matrix& mat)
 	{
-		// s—ñ“¯m‚Ìs”‚Æ—ñ”‚ª“™‚µ‚­‚È‚¢‚Æ‚«
+		// è¡Œåˆ—åŒå£«ã®è¡Œæ•°ã¨åˆ—æ•°ãŒç­‰ã—ããªã„ã¨ã
 		if(m_row != mat.m_row || m_col != mat.m_col)
 		{
 			string err = "Matrix can't be substituted";
@@ -172,19 +172,19 @@ namespace arith {
 		return *this;
 	}
 
-	// +‰‰Zq
+	// +æ¼”ç®—å­
 	Matrix Matrix::operator+(const Matrix& mat) const
 	{
-		// s—ñ“¯m‚Ìs”‚Æ—ñ”‚ª“™‚µ‚­‚È‚¢‚Æ‚«
+		// è¡Œåˆ—åŒå£«ã®è¡Œæ•°ã¨åˆ—æ•°ãŒç­‰ã—ããªã„ã¨ã
 		if(m_row != mat.m_row || m_col != mat.m_col){
 			string err = "Matrix can't be added";
 			throw err;
 		}
 
-		// ‰ğ‚Æ‚È‚és—ñ
+		// è§£ã¨ãªã‚‹è¡Œåˆ—
 		Matrix matAns(m_row, m_col);
 
-		// ó‚¯æ‚Á‚½2‚Â‚Ìs—ñ‚ğ‰ÁZ‚·‚é
+		// å—ã‘å–ã£ãŸ2ã¤ã®è¡Œåˆ—ã‚’åŠ ç®—ã™ã‚‹
 		for(unsigned int i = 0; i < m_row; i++)
 		{
 			for(unsigned int j = 0; j < m_col; j++)
@@ -196,16 +196,16 @@ namespace arith {
 		return matAns;
 	}
 
-	// +=‰‰Zq
+	// +=æ¼”ç®—å­
 	Matrix& Matrix::operator+=(const Matrix& mat)
 	{
-		// s—ñ“¯m‚Ìs”‚Æ—ñ”‚ª“™‚µ‚­‚È‚¢‚Æ‚«
+		// è¡Œåˆ—åŒå£«ã®è¡Œæ•°ã¨åˆ—æ•°ãŒç­‰ã—ããªã„ã¨ã
 		if(m_row != mat.m_row || m_col != mat.m_col){
 			string err = "Matrix can't be added";
 			throw err;
 		}
 
-		// ó‚¯æ‚Á‚½2‚Â‚Ìs—ñ‚ğ‰ÁZ‚·‚é
+		// å—ã‘å–ã£ãŸ2ã¤ã®è¡Œåˆ—ã‚’åŠ ç®—ã™ã‚‹
 		for(unsigned int i = 0; i < m_row; i++)
 		{
 			for(unsigned int j = 0; j < m_col; j++)
@@ -217,19 +217,19 @@ namespace arith {
 		return *this;
 	}
 
-	// -‰‰Zq
+	// -æ¼”ç®—å­
 	Matrix Matrix::operator-(const Matrix& mat) const
 	{
-		// s—ñ“¯m‚Ìs”‚Æ—ñ”‚ª“™‚µ‚­‚È‚¢‚Æ‚«
+		// è¡Œåˆ—åŒå£«ã®è¡Œæ•°ã¨åˆ—æ•°ãŒç­‰ã—ããªã„ã¨ã
 		if(m_row != mat.m_row || m_col != mat.m_col){
 			string err = "Matrix can't be subtracted";
 			throw err;
 		}
 
-		// ‰ğ‚Æ‚È‚és—ñ
+		// è§£ã¨ãªã‚‹è¡Œåˆ—
 		Matrix matAns(m_row, m_col);
 
-		// s—ñŒ¸Z
+		// è¡Œåˆ—æ¸›ç®—
 		for(unsigned int i = 0; i < m_row; i++)
 		{
 			for(unsigned int j = 0; j < m_col; j++)
@@ -242,16 +242,16 @@ namespace arith {
 	}
 
 
-	// -=‰‰Zq
+	// -=æ¼”ç®—å­
 	Matrix& Matrix::operator-=(const Matrix& mat)
 	{
-		// s—ñ“¯m‚Ìs”‚Æ—ñ”‚ª“™‚µ‚­‚È‚¢‚Æ‚«
+		// è¡Œåˆ—åŒå£«ã®è¡Œæ•°ã¨åˆ—æ•°ãŒç­‰ã—ããªã„ã¨ã
 		if(m_row != mat.m_row || m_col != mat.m_col){
 			string err = "Matrix can't be subtracted";
 			throw err;
 		}
 
-		// s—ñ‰ÁZ
+		// è¡Œåˆ—åŠ ç®—
 		for(unsigned int i = 0; i < m_row; i++){
 			for(unsigned int j = 0; j < m_col; j++)
 			{
@@ -262,19 +262,19 @@ namespace arith {
 		return *this;
 	}
 
-	// s—ñ“¯m‚ÌæZ
+	// è¡Œåˆ—åŒå£«ã®ä¹—ç®—
 	Matrix Matrix::operator*(const Matrix& mat) const
 	{
-		// ”íæ”‚Ìs—ñ‚Ì—ñ”æ”‚Ìs—ñ‚Ìs”
+		// è¢«ä¹—æ•°ã®è¡Œåˆ—ã®åˆ—æ•°ï¼ä¹—æ•°ã®è¡Œåˆ—ã®è¡Œæ•°
 		if(m_col != mat.m_row){
 			string err = "Matrix can't be producted";
 			throw err;
 		}
 
-		// ‰ğ‚Æ‚È‚és—ñi”íæ”‚Ìs—ñ‚Ì—ñ”Aæ”‚Ìs—ñ‚Ìs”j
+		// è§£ã¨ãªã‚‹è¡Œåˆ—ï¼ˆè¢«ä¹—æ•°ã®è¡Œåˆ—ã®åˆ—æ•°ã€ä¹—æ•°ã®è¡Œåˆ—ã®è¡Œæ•°ï¼‰
 		Matrix matAns(m_row, mat.m_col);
 
-		// s—ñ‚ÌæZ
+		// è¡Œåˆ—ã®ä¹—ç®—
 		for(unsigned int i = 0; i < m_row; i++){
 			for(unsigned int j = 0; j < mat.m_col; j++)
 			{
@@ -289,10 +289,10 @@ namespace arith {
 		return matAns;
 	}
 
-	// s—ñ‚Æ’l‚ÌæZ
+	// è¡Œåˆ—ã¨å€¤ã®ä¹—ç®—
 	Matrix Matrix::operator*(const double& in_val) const
 	{
-		// ‰ğ‚Æ‚È‚és—ñ
+		// è§£ã¨ãªã‚‹è¡Œåˆ—
 		Matrix matAns(m_row, m_col);
 
 		for(unsigned int i = 0; i < m_row; i++)
@@ -306,7 +306,7 @@ namespace arith {
 		return matAns;
 	}
 
-	// s—ñ‚Æ’l‚ÌæZ
+	// è¡Œåˆ—ã¨å€¤ã®ä¹—ç®—
 	Matrix& Matrix::operator*=(const double& in_val)
 	{
 		for(unsigned int i = 0; i < m_row; i++)
@@ -320,10 +320,10 @@ namespace arith {
 		return *this;
 	}
 
-	// s—ñ‚Æ’l‚ÌœZ
+	// è¡Œåˆ—ã¨å€¤ã®é™¤ç®—
 	Matrix Matrix::operator/(const double& in_val) const
 	{
-		// ‰ğ‚Æ‚È‚és—ñ
+		// è§£ã¨ãªã‚‹è¡Œåˆ—
 		Matrix matAns(m_row, m_col);
 
 		for(unsigned int i = 0; i < m_row; i++)
@@ -337,7 +337,7 @@ namespace arith {
 		return matAns;
 	}
 
-	// s—ñ‚Æ’l‚ÌœZ
+	// è¡Œåˆ—ã¨å€¤ã®é™¤ç®—
 	Matrix& Matrix::operator/=(const double& in_val)
 	{
 		for(unsigned int i = 0; i < m_row; i++)
@@ -351,10 +351,10 @@ namespace arith {
 		return *this;
 	}
 
-	// “]’us—ñ‚ğ‹‚ß‚é
+	// è»¢ç½®è¡Œåˆ—ã‚’æ±‚ã‚ã‚‹
 	Matrix Matrix::transpose() const
 	{
-		// ‰ğ‚Æ‚È‚és—ñis‚Æ—ñ‚ğ”½‘Î‚Éİ’èj
+		// è§£ã¨ãªã‚‹è¡Œåˆ—ï¼ˆè¡Œã¨åˆ—ã‚’åå¯¾ã«è¨­å®šï¼‰
 		Matrix matAns(m_col, m_row);
 
 		for(unsigned int i = 0; i < m_row; i++)
@@ -368,10 +368,10 @@ namespace arith {
 		return matAns;
 	}
 
-		// s—ñ‚Æ’l‚Ì‰ÁZ
+		// è¡Œåˆ—ã¨å€¤ã®åŠ ç®—
 	Matrix Matrix::operator+(const double& in_val) const
 	{
-		// ‰ğ‚Æ‚È‚és—ñ
+		// è§£ã¨ãªã‚‹è¡Œåˆ—
 		Matrix matAns(m_row, m_col);
 
 		for(unsigned int i = 0; i < m_row; i++)
@@ -385,7 +385,7 @@ namespace arith {
 		return matAns;
 	}
 
-	// s—ñ‚Æ’l‚Ì‰ÁZ
+	// è¡Œåˆ—ã¨å€¤ã®åŠ ç®—
 	Matrix& Matrix::operator+=(const double& in_val)
 	{
 		for(unsigned int i = 0; i < m_row; i++)
@@ -399,10 +399,10 @@ namespace arith {
 		return *this;
 	}
 
-	// s—ñ‚Æ’l‚ÌŒ¸Z
+	// è¡Œåˆ—ã¨å€¤ã®æ¸›ç®—
 	Matrix Matrix::operator-(const double& in_val) const
 	{
-		// ‰ğ‚Æ‚È‚és—ñ
+		// è§£ã¨ãªã‚‹è¡Œåˆ—
 		Matrix matAns(m_row, m_col);
 
 		for(unsigned int i = 0; i < m_row; i++)
@@ -416,7 +416,7 @@ namespace arith {
 		return matAns;
 	}
 
-	// s—ñ‚Æ’l‚ÌŒ¸Z
+	// è¡Œåˆ—ã¨å€¤ã®æ¸›ç®—
 	Matrix& Matrix::operator-=(const double& in_val)
 	{
 		for(unsigned int i = 0; i < m_row; i++)
@@ -430,7 +430,7 @@ namespace arith {
 		return *this;
 	}
 
-	// “¯ˆê‚©‚Ç‚¤‚©”äŠr
+	// åŒä¸€ã‹ã©ã†ã‹æ¯”è¼ƒ
 	bool Matrix::operator==(const Matrix& mat) const
 	{
 		bool ret = true;

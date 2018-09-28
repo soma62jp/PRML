@@ -9,10 +9,13 @@ using namespace std;
 
 	//------------------------------------------//
 	//             Lasso回帰                    //
+	//             切片ありのみテスト済み       //
+    //			intercept_=trueのみ             //
 	//------------------------------------------//
 	class Lasso{
 
 		private:
+		public:
 
 			double alpha_;				// 正則化項の係数
 			int max_iter_;				// 繰り返しの回数
@@ -20,7 +23,7 @@ using namespace std;
 			Matrix* coef_;				// 回帰係数(i.e., ¥beta)保存用変数
 			double intercept_;			// 切片保存用変数
 
-		public:
+
 			// 
 			explicit Lasso(double alpha, int max_iter, bool fit_intercept);
 
@@ -29,7 +32,7 @@ using namespace std;
 
 			double soft_thresholding_operator(double x, double lambda);
 
-			void fit(const Matrix& X, const Matrix& y);
+			void fit( Matrix& X,  Matrix& y);
 
 			Matrix predict(const Matrix& X);
 
@@ -61,12 +64,20 @@ using namespace std;
 
 	}
 
-	void Lasso::fit(const Matrix& X, const Matrix& y){
+	void Lasso::fit(Matrix& X, Matrix& y){
 
-		coef_ = new Matrix(1,1);    // coefのサイズを作る
+		double sum;
+		double arg1;
+        double arg2;
+		int start;
 
 		//fit_intercept_=true
 		Matrix calcX(X.m_row, X.m_col + 1);
+		Matrix beta(1, calcX.m_col);
+		Matrix tmp_beta(1, calcX.m_col);
+		Matrix r_j(y.m_row,y.m_col);
+		coef_ = new Matrix(1,calcX.m_col - 1);    // coefのサイズを作る
+
 
 		for(unsigned int i=0;i<X.m_row;i++){
 			for(unsigned int j=0;j<X.m_col;j++){
@@ -75,29 +86,115 @@ using namespace std;
 		}
 
 		if (fit_intercept_){
-			//XX = np.column_stack((np.ones(len(X)),X))
-			for(unsigned int i=0;i<calcX.m_col;i++){
+			for(unsigned int i=0;i<calcX.m_row;i++){
 				calcX(i,0) = 1;
 			}
 		}
 
-		//numpy::print(calcX);
+		if (fit_intercept_){
+			sum = 0;
+			for(unsigned int i=0;i<y.m_col;i++){
+				sum += y(0,i);
+			}
+			sum /= X.m_row;
+            beta(0,0) = sum;
+		}
 
+		for(int i=0;i<max_iter_;i++){
+
+			if (fit_intercept_) {
+				start = 1;
+			}else{
+				start = 0;
+			}
+
+
+			for(unsigned int j=start;j < beta.m_col;j++){
+
+				arg1 = 0;
+				arg2 = 0;
+				sum = 0;
+
+				tmp_beta = beta;
+				tmp_beta(0,j) = 0;
+				Matrix wk1(1,calcX.m_row);
+
+
+				for(unsigned int k=0;k<calcX.m_row;k++){
+					sum = 0;
+					for(unsigned int l=0;l<calcX.m_col;l++){
+						sum += calcX(k,l) * tmp_beta(0,l);
+					}
+					wk1(0,k) = sum;
+				}
+
+				r_j = y - wk1;
+
+				for(unsigned int k=0;k<calcX.m_row;k++){
+					arg1 += calcX(k,j) * r_j(0,k);
+				}
+				arg2 = (double)calcX.m_row * alpha_;
+
+				sum=0;
+				for(unsigned int k=0;k<X.m_row;k++){
+					sum += calcX(k,j) * calcX(k,j);
+				}
+
+
+				beta(0,j) = soft_thresholding_operator(arg1, arg2) / sum;
+
+				if(fit_intercept_){
+					Matrix wk2(y.m_row,y.m_col);
+					for(unsigned int k=0;k<X.m_row;k++){
+						sum=0;
+						for(unsigned int l=0;l<X.m_col;l++){
+							sum += X(k,l) * beta(0,l+1);
+						}
+						wk2(0,k) = sum;
+
+					}
+
+					sum = 0;
+					Matrix wk3(y.m_row,y.m_col);
+					wk3 = y - wk2;
+					for(unsigned int l=0;l<X.m_row;l++){
+						sum+=wk3(0,l);
+					}
+
+					sum /= calcX.m_row;
+
+					beta(0,0) = sum;
+
+				}
+
+
+			}
+		}
+
+		if(fit_intercept_){
+			intercept_ = beta(0,0);
+			for(unsigned int l=0;l<X.m_col;l++){
+				coef_->val[0][l] = beta(0,l+1);
+			}
+		}else{
+			// not tested
+			coef_ = &beta;
+		}
 
 	}
 
 	Matrix Lasso::predict(const Matrix& X){
 
-		Matrix y = numpy::mult(X,*coef_);   //
-		Matrix wrk(1, y.m_col);
+		Matrix y(1,X.m_row);
 
-		//np.ones(len(y))
-		for(unsigned int i=0;i<y.m_col;i++){
-			wrk(0,i) = 1;
+		for(unsigned int i=0;i<X.m_col;i++){
+			for(unsigned int j=0;j<X.m_row;j++){
+				y(0,j) += X.val[j][i] * coef_->val[0][i];
+			}
 		}
 
 		if (fit_intercept_){
-			y += wrk * intercept_;
+			y += intercept_;
 		}
 
 		return y;

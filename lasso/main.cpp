@@ -17,62 +17,48 @@
 using namespace arith;
 using namespace std;
 
-int main(int argc, char* argv[]) 
+int main(int argc, char* argv[])
 {
-    /*
-    // Initialize the number of rows and columns
-    Matrix matA(3, 2);
-    Matrix matB(3, 2);
-    // Set elements
-	matA(0, 1) = 10;
-	matB(2, 1) = 20;
-    // Get elements
-    double a01 = matA(0, 1);
-    double b22 = matB(2, 1);
-    // Addition and subtraction of matrixes
-    Matrix matC = matA + matB;
-    matC += matA;
-    matC  = matA - matB;
-    matC -= matB;
-    Matrix matD(2, 3);
-    // Multiplication and division of matrixes
-    Matrix matE = matD * matA;
-    int val = 10;
-    // Multiplication and division of a matrix and a scholar
-    matA  = matB * val;
-    matA *= val;
-    matA  = matB / val;
-    matA /= val;
-    // Transpose
-	matA = matD.transpose();
-	cout << matD(0,0) << endl;
-	cout << a01 << endl;
-	cout << b22 << endl;
-    cout << "--" << endl;
-    matA(0, 1) = 10;
-	numpy::print(matA);
-    cout << "--" << endl;
-	numpy::print(matB);
-    */
 
-    //----------------------
-    Matrix X(3,2);
+	Matrix X(4,2);
+	Matrix test(4,2);
+	Matrix ans(1,4);
     X(0,0)=0;
     X(0,1)=0;
     X(1,0)=1;
     X(1,1)=100;
     X(2,0)=2;
-    X(2,1)=200;
+	X(2,1)=200;
+	X(3,0)=3;
+	X(3,1)=300;
 
-    Matrix y(1,3);
+	Matrix y(1,4);
     y(0,0)=1;
     y(0,1)=2;
-    y(0,2)=4;
+	y(0,2)=4;
+	y(0,3)=8;
 
-    numpy::print(X);
+	test=X;
 
     Lasso model(1.0,1000,true);
-    model.fit(X,y);
+	model.fit(X,y);
+	ans = model.predict(test);
+
+	//
+	cout << "X--" << endl;
+	numpy::print(X);
+	cout << "y--" << endl;
+	numpy::print(y);
+	cout <<	"intercept_--" << endl;
+	cout << model.intercept_ << endl;
+	cout <<	"coef_--" << endl;
+	numpy::print(*model.coef_);
+	cout << "predict--" << endl;
+	numpy::print(ans);
+
+	//for(unsigned int l=0;l<2;l++){
+	//	cout <<	model.coef_->val[0][l] << " ";
+	//}
 
 	return 0;
 }
