@@ -20,17 +20,17 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-	Matrix X(4,2);
-	Matrix test(4,2);
-	Matrix ans(1,4);
+  Matrix X(4,2);
+  Matrix test(4,2);
+  Matrix ans(1,4);
   X(0,0)=0;
   X(0,1)=0;
   X(1,0)=1;
   X(1,1)=100;
   X(2,0)=2;
-	X(2,1)=200;
-	X(3,0)=3;
-	X(3,1)=300;
+  X(2,1)=200;
+  X(3,0)=3;
+  X(3,1)=300;
 
 	Matrix y(1,4);
   y(0,0)=1;
@@ -38,29 +38,29 @@ int main(int argc, char* argv[])
 	y(0,2)=4;
 	y(0,3)=8;
 
-	test=X;
+  test=X;
 
-    Lasso model(1.0,1000,true);
-	model.fit(X,y);
-	ans = model.predict(test);
+  Lasso model(1.0,1000,true);
+  model.fit(X,y);
+  ans = model.predict(test);
 
-	//
-	cout << "X--" << endl;
-	numpy::print(X);
-	cout << "y--" << endl;
-	numpy::print(y);
-	cout <<	"intercept_--" << endl;
-	cout << model.intercept_ << endl;
-	cout <<	"coef_--" << endl;
-	numpy::print(*model.coef_);
-	cout << "predict--" << endl;
-	numpy::print(ans);
+  //
+  cout << "X--" << endl;
+  numpy::print(X);
+  cout << "y--" << endl;
+  numpy::print(y);
+  cout <<	"intercept_--" << endl;
+  cout << model.intercept_ << endl;
+  cout <<	"coef_--" << endl;
+  numpy::print(*model.coef_);
+  cout << "predict--" << endl;
+  numpy::print(ans);
 
-	//for(unsigned int l=0;l<2;l++){
-	//	cout <<	model.coef_->val[0][l] << " ";
-	//}
+  //for(unsigned int l=0;l<2;l++){
+  //	cout <<	model.coef_->val[0][l] << " ";
+  //}
 
-	return 0;
+  return 0;
 }
 
 /*
