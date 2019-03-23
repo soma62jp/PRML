@@ -46,7 +46,9 @@ Lasso::Lasso(double alpha, int max_iter, bool fit_intercept)
 }
 
 Lasso::~Lasso() {
-	delete coef_;
+	if(coef_!=NULL){
+		delete coef_;
+	}
 }
 
 double Lasso::soft_thresholding_operator(double x, double lambda) {
