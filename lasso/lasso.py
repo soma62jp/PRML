@@ -7,8 +7,6 @@
 #
 
 import numpy as np
-from sklearn.base import BaseEstimator, RegressorMixin
-from copy import deepcopy
 
 class Lasso:
     def __init__(self, alpha: float = 1.0, max_iter: int = 1000, fit_intercept: bool = True) -> None:
