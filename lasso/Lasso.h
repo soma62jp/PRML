@@ -13,11 +13,16 @@ using namespace std;
 class Lasso {
 
 private:
-public:
 
 	double alpha_; // 正則化項の係数
 	int max_iter_; // 繰り返しの回数
 	bool fit_intercept_; // 切片(i.e., ¥beta_0)を用いるか
+
+	double soft_thresholding_operator(double x, double lambda);
+
+public:
+
+
 	Matrix* coef_; // 回帰係数(i.e., ¥beta)保存用変数
 	double intercept_; // 切片保存用変数
 
@@ -26,11 +31,7 @@ public:
 
 	//
 	virtual ~Lasso();
-
-	double soft_thresholding_operator(double x, double lambda);
-
 	void fit(Matrix& X, Matrix& y);
-
 	Matrix predict(const Matrix& X);
 
 };
